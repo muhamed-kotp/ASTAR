@@ -38,7 +38,6 @@
 
             <button type="submit" class="btn default-btn mb-3">Sign Up</button>
         </form>
-        <a style="width: 200px" class="btn btn-outline-danger mb-5 " href="{{ route('auth.github.redirect') }}">sign up with
-            github <i class="fa-brands fa-github"></i></a>
+
     </div>
 @endsection

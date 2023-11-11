@@ -30,7 +30,7 @@
 </head>
 
 <body style="">
-    <x-navbar></x-navbar>
+    <x-navbar class="fixed-top primary-nav"></x-navbar>
 
 
     @yield('content')

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PartitionController extends Controller
 {
 
-        //Function To Show All Partitions
+    //Function To Show All Partitions
     public function index()
     {
         $partitions = Partition::get();
@@ -19,7 +19,7 @@ class PartitionController extends Controller
             compact('partitions')
         );
     }
-        //Function To Show Each Partition
+    //Function To Show Each Partition
     public function show($id)
     {
         $partition = Partition::findOrFail($id);
@@ -32,9 +32,9 @@ class PartitionController extends Controller
 
     public function create()
     {
-        $categories = Category::select('id','name')->get();
+        $categories = Category::select('id', 'name')->get();
         return view(
-            'partition.create',compact('categories')
+            'partition.create', compact('categories')
         );
     }
 
@@ -44,7 +44,7 @@ class PartitionController extends Controller
         $request->validate([
             'title' => 'required|string|max:100',
             'img' => 'required|image|mimes:jpg,png',
-            'category_id'=>'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
 
         ]);
         // move
@@ -53,10 +53,10 @@ class PartitionController extends Controller
         $name = "partition-" . uniqid() . ".$ext";
         $img->move(public_path('uploads/partitions'), $name);
 
-         Partition::create([
+        Partition::create([
             'title' => $request->title,
             'img' => $name,
-            'category_id' =>$request->category_id
+            'category_id' => $request->category_id,
         ]);
 
         return redirect(route('welcome'));
@@ -64,11 +64,14 @@ class PartitionController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::select('id', 'name')->get();
         $partition = Partition::findOrFail($id);
 
         return view(
-            'partition.edit',
-            compact('partition')
+            'partition.edit', [
+                'partition' => $partition,
+                'categories' => $categories,
+            ]
         );
     }
 
@@ -78,6 +81,7 @@ class PartitionController extends Controller
         $request->validate([
             'title' => 'required|string|max:100',
             'img' => 'nullable|image|mimes:jpg,png',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $partition = Partition::findOrFail($id);
@@ -96,10 +100,11 @@ class PartitionController extends Controller
 
         $partition->update([
             'title' => $request->title,
-            'img' => $name
+            'img' => $name,
+            'category_id' => $request->category_id,
         ]);
 
-        return redirect(route('partition.edit', $id));
+        return redirect(route('welcome'));
     }
 
     public function delete($id)

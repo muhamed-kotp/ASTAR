@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Create Category
+    Create Partition
 @endsection
 
 @section('content')
@@ -10,16 +10,16 @@
 
             @csrf
             <div class="mb-3">
-                <label class="form-label fs-1">Partition Name</label>
-                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
-                <div class="form-text">This will be the name of the category </div>
-                @error('name')
+                <label class="form-label fs-4">Partition Name</label>
+                <input placeholder="This will be the name of the Partition " type="text" name="title" class="form-control"
+                    value="{{ old('title') }}">
+                @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
             <div class="dropdown mb-3">
-                <label class="form-label fs-3">Category</label>
+                <label class="form-label fs-4">Category</label>
                 <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="category_id">
                     <option>Choose Category</option>
 
@@ -36,7 +36,7 @@
 
 
             <div class="mb-3">
-                <label class="form-label fs-1">Upload Image</label>
+                <label class="form-label fs-4">Upload Image</label>
                 <input class="form-control" type="file" name="img">
                 @error('img')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -44,7 +44,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn default-btn">Submit</button>
         </form>
     </div>
 @endsection

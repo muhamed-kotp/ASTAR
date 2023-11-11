@@ -22,7 +22,7 @@ class Navbar extends Component
      */
     public function render(): View|Closure|string
     {
-        $cats = Category::get() ;
-        return view('components.navbar',compact('cats'));
+        $categories = Category::get() ;
+        return view('components.navbar',compact('categories'));
     }
 }

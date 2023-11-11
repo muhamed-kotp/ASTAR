@@ -27,11 +27,14 @@
                 @enderror
             </div>
 
+
+            @if (session('fail'))
+                <div class="alert alert-danger">
+                    {{ session('fail') }}
+                </div>
+            @endif
             <button type="submit" class="btn default-btn mb-3">Sign In</button>
         </form>
-
-        <a style="width: 200px" class="btn btn-outline-danger mb-5 " href="{{ route('auth.github.redirect') }}">sign up with
-            github <i class="fa-brands fa-github"></i></a>
 
     </div>
 @endsection

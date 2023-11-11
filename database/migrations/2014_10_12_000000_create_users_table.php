@@ -16,11 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone',20)->nullable();
-            $table->string('address',255)->nullable();
             $table->boolean('Is_admin')->default(0);
             $table->string('token',255)->nullable();
-            $table->string('oauth_token',255)->nullable();
             $table->timestamps();
         });
     }

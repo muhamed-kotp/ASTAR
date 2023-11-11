@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('phone',20)->nullable();
+            $table->string('address',255)->nullable();
             $table->float('total');
+            $table->string('payment_method',100);
             $table->timestamps();
         });
     }

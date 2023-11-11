@@ -17,7 +17,13 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn default-btn">Edit</button>
+                <a class="btn default-btn" href="{{ route('category.delete', $cat->id) }}">Delete</a>
+            </div>
+            <div>
+                <a class="btn back_btn" href="{{ route('welcome') }}">Back</a>
+            </div>
         </form>
     </div>
 @endsection

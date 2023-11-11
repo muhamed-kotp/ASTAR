@@ -1,38 +1,45 @@
 @extends('layout')
 
-@section('style')
+{{-- @section('style')
     <link rel="stylesheet" href="{{ asset('css/booksIndex.css') }}">
-@endsection
+@endsection --}}
 
 @section('content')
 
-
     <div class="container " style="margin-bottom :250px; margin-top: 50px ">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class=" row ">
-            @if ($book !== null)
+            @if ($item !== null)
                 <div class="col-lg-6 mt-5">
-                    <img src="{{ asset('uploads/books/') }}/{{ $book->img }}" class="img-fluid ">
+                    <img src="{{ asset('uploads/items/') }}/{{ $item->img }}" class="img-fluid ">
                 </div>
                 <div class="mt-5 col-lg-6">
                     <div class="ms-5">
-                        <h4 class="fw-normal">{{ $book->title }}</h4>
+                        <h4 class="fw-normal">{{ $item->title }}</h4>
 
-                        <p>{{ $book->description }}</p>
+                        <p>{{ $item->description }}</p>
+                        <p>Price: ${{ $item->price }}</p>
 
-                        <span class="fw-light"> Category :</span>
-                        @foreach ($book->categories as $category)
-                            <h5 class="fw-normal">{{ $category->name }} </h5>
-                        @endforeach
+
+
+                        <a href="{{ route('add.to.cart', $item->id) }}" class="btn default-btn">Add to
+                            Cart</a>
 
 
                         @auth
-
-                            <a href="{{ route('books.edit', $book->id) }}" class="btn btn-info">Edit</a>
-                            <a href="{{ route('books.delete', $book->id) }}" class="btn btn-danger">delete</a>
+                            @if (Auth::user()->Is_admin == 1)
+                                <p>There are {{ $item->quantity }} Pieces</p>
+                                <a href="{{ route('items.edit', $item->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('items.delete', $item->id) }}" class="btn btn-danger">delete</a>
+                            @endif
                         @endauth
 
-                        <div>
-                            <a href="{{ route('category.index') }}" class="btn back_btn">Back</a>
+                        <div class="my-5">
+                            <a href="{{ route('partition.show', $item->partition_id) }}" class="btn back_btn">Back</a>
                         </div>
 
                     </div>
@@ -40,6 +47,4 @@
             @endif
         </div>
     </div>
-
-
 @endsection
