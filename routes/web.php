@@ -80,7 +80,7 @@ Route::post('/handle-check-out', [OrderController::class, 'handleCheckOut'])->na
  });
 
 //Welcome
-Route::get('/', [CategoryController::class, 'welcome'])->name('welcome');
+Route::get('/', [CategoryController::class, 'index'])->name('welcome');
 // Items: read
 Route::get('/items/show/{id}', [ItemController::class, 'show'])->name('items.show');
 

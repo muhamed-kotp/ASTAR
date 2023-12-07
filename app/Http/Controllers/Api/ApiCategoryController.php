@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Models\Partition;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ApiCategoryController extends Controller
 {
     //Function To Show All Categories
-    public function welcome()
+    public function index()
     {
         $categories = Category::get();
         $partitions = Partition::get();

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     //Function To Show All Categories
-    public function welcome()
+    public function index()
     {
         $categories = Category::get();
         $partitions = Partition::get();

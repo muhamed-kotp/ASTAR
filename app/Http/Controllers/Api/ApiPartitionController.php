@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Models\Partition;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ApiPartitionController extends Controller
@@ -27,6 +28,7 @@ class ApiPartitionController extends Controller
 
     }
 
+    //Function To Create New Partition
     public function store(Request $request)
     {
         // validation
@@ -56,6 +58,7 @@ class ApiPartitionController extends Controller
         $success= 'The Partition is Created sucssefully' ;
         return response()->json($success);
     }
+    //Function To update a Partition
     public function update(Request $request, $id)
     {
         // validation
@@ -93,6 +96,7 @@ class ApiPartitionController extends Controller
         return response()->json($success);
     }
 
+    //Function To Delete a Partition
     public function delete($id)
     {
         $partition = Partition::findOrFail($id);

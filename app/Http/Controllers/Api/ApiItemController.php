@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Item;
 use App\Models\Partition;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ApiItemController extends Controller
 {
+    //Function To Show All Items
     public function index()
     {
         $items = Item::get();
 
         return response()->json($items);
     }
-    //Function To Show Each Partition
+    //Function To Show Each Item
     public function show($id)
     {
         $item = Item::findOrFail($id);
@@ -23,6 +25,7 @@ class ApiItemController extends Controller
         return response()->json($item);
     }
 
+    //Function To Create New Item
     public function store(Request $request)
     {
         // validation
@@ -57,7 +60,9 @@ class ApiItemController extends Controller
         ]);
 
         $success= 'The Item is Created sucssefully' ;
-        return response()->json($success);    }
+        return response()->json($success);
+    }
+    //Function To update Item
     public function update(Request $request, $id)
     {
         // validation
@@ -98,8 +103,9 @@ class ApiItemController extends Controller
         ]);
 
         $success= 'The Item is Updated sucssefully' ;
-        return response()->json($success);    }
-
+        return response()->json($success);
+    }
+    //Function To Delete Item
     public function delete($id)
     {
         $item = Item::findOrFail($id);
