@@ -6,14 +6,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Traits\AuthorizeCheck;
 
 class IsLoginAdmin
 {
+    use AuthorizeCheck;
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()&& Auth::user()->Is_admin==1){
+       $this->authorizCheck('edit-settings');
             return $next($request);
-        };
-        return redirect(route('auth.login'));
+
     }
 }

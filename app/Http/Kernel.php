@@ -60,6 +60,8 @@ class Kernel extends HttpKernel
         'IsLoginGuest' => \App\Http\Middleware\IsLoginGuest::class,
         'IsApiUser' => \App\Http\Middleware\IsApiUser::class,
         'IsApiAdmin' => \App\Http\Middleware\IsApiAdmin::class,
+        'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
+        'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

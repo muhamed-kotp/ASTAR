@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    All Users
+    All Roles
 @endsection
 
 @section('content')
@@ -10,30 +10,25 @@
             {{ session('success') }}
         </div>
     @endif
+
+    </div>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="courses-cont">
                 @php $x = 1 ;@endphp
-                @foreach ($users as $user)
+                @foreach ($roles as $role)
                     <tr class="table-warning">
 
                         <th scope="row">{{ $x }}</th>
-                        <td class="fw-bold">{{ $user->name }}</td>
-                        <td class="fw-bold">{{ $user->email }}</td>
-                        <td class="fw-bold">{{ $user->role }}</td>
-                        <td><a class="fw-bold btn default-btn"href="{{ route('users.edit', $user->id) }}">Edit
-                                Role</a>
-                        </td>
-
+                        <td><a class="fs-5 fw-bold " href="{{ route('role-permission.show', $role->id) }}">
+                                {{ $role->name }}
+                            </a></td>
 
                     </tr>
                     <div class="d-none">{{ $x++ }}</div>

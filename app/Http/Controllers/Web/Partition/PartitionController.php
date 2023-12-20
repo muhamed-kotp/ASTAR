@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Partition;
 
 use App\Models\Category;
 use App\Models\Partition;
+use App\Http\Controllers\Controller;
+use App\Traits\AuthorizeCheck;
 use Illuminate\Http\Request;
 
 class PartitionController extends Controller
 {
+    use AuthorizeCheck;
 
     //Function To Show All Partitions
     public function index()
@@ -18,7 +21,8 @@ class PartitionController extends Controller
             'welcome',
             compact('partitions')
         );
-    }
+    }//End Method
+
     //Function To Show Each Partition
     public function show($id)
     {
@@ -28,18 +32,22 @@ class PartitionController extends Controller
             'partition.show',
             compact('partition')
         );
-    }
+    }//End Method
 
+        //Function To Create New Partition
     public function create()
     {
+        $this->authorizCheck('create-partitions');
         $categories = Category::select('id', 'name')->get();
         return view(
             'partition.create', compact('categories')
         );
-    }
+    }//End Method
 
+        //Function To Store New Partition
     public function store(Request $request)
     {
+        $this->authorizCheck('create-partitions');
         // validation
         $request->validate([
             'title' => 'required|string|max:100',
@@ -60,10 +68,12 @@ class PartitionController extends Controller
         ]);
 
         return redirect(route('welcome'));
-    }
+    }//End Method
 
+    //Function To Store New Partition
     public function edit($id)
     {
+        $this->authorizCheck('edit-partitions');
         $categories = Category::select('id', 'name')->get();
         $partition = Partition::findOrFail($id);
 
@@ -73,10 +83,12 @@ class PartitionController extends Controller
                 'categories' => $categories,
             ]
         );
-    }
+    }//End Method
 
+        //Function To update a Partition
     public function update(Request $request, $id)
     {
+        $this->authorizCheck('edit-partitions');
         // validation
         $request->validate([
             'title' => 'required|string|max:100',
@@ -105,10 +117,12 @@ class PartitionController extends Controller
         ]);
 
         return redirect(route('welcome'));
-    }
+    }//End Method
 
+        //Function To Delete a Partition
     public function delete($id)
     {
+        $this->authorizCheck('delete-partitions');
         $partition = Partition::findOrFail($id);
 
         if ($partition->img !== null) {
@@ -118,5 +132,5 @@ class PartitionController extends Controller
         $partition->delete();
 
         return redirect(route('welcome'));
-    }
+    }//End Method
 }

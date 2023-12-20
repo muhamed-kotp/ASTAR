@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Category;
 
 use App\Models\Category;
 use App\Models\Partition;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\AuthorizeCheck;
 
-class ApiCategoryController extends Controller
+class CategoryController extends Controller
 {
+    use AuthorizeCheck;
+
     //Function To Show All Categories
     public function index()
     {
@@ -19,7 +22,7 @@ class ApiCategoryController extends Controller
             'categories' =>$categories ,
             'partitions' =>$partitions
         ]);
-    }
+    } //End Method
 
     //Function To Show Each Category
 
@@ -27,12 +30,13 @@ class ApiCategoryController extends Controller
     {
         $cat= Category::with('partitions')->findOrFail($id);
         return response()->json($cat);
-    }
+    } //End Method
 
 
     //Function To Create New Category
     public function store (Request $request)
     {
+        $this->authorizCheck('create-categories');
         // valdation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
@@ -47,11 +51,12 @@ class ApiCategoryController extends Controller
         ]);
         $success= 'The Category is Created sucssefully' ;
         return response()->json($success);
-    }
+    } //End Method
 
     //Function To update a Category
     public function update (Request $request, $id)
     {
+        $this->authorizCheck('edit-categories');
         //validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100'
@@ -66,14 +71,15 @@ class ApiCategoryController extends Controller
         ]);
         $success= 'The Category is Updated sucssefully' ;
         return response()->json($success);
-    }
+    } //End Method
 
     //Function To Delete a Category
       public function delete ($id)
       {
+        $this->authorizCheck('delete-categories');
         $cat = Category::findOrFail($id);
         $cat->delete();
         $success= 'The Category is Deleated sucssefully' ;
         return response()->json($success);
-      }
+      } //End Method
 }

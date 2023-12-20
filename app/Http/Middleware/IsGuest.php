@@ -14,6 +14,6 @@ class IsGuest
 
             return $next($request);
         }
-        return redirect(route('auth.login'));
+        throw new \Illuminate\Auth\Access\AuthorizationException(__(' Sorry,You have To logout First'));
     }
 }

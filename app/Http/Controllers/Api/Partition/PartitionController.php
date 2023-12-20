@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Partition;
 
 use App\Models\Category;
 use App\Models\Partition;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\AuthorizeCheck;
 
-class ApiPartitionController extends Controller
+class PartitionController extends Controller
 {
+    use AuthorizeCheck;
 
     //Function To Show All Partitions
     public function index()
@@ -18,7 +20,8 @@ class ApiPartitionController extends Controller
 
         return response()->json($partitions);
 
-    }
+    }//End Method
+
     //Function To Show Each Partition
     public function show($id)
     {
@@ -26,11 +29,12 @@ class ApiPartitionController extends Controller
 
         return response()->json($partition);
 
-    }
+    }//End Method
 
     //Function To Create New Partition
     public function store(Request $request)
     {
+        $this->authorizCheck('create-partitions');
         // validation
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',
@@ -57,10 +61,13 @@ class ApiPartitionController extends Controller
 
         $success= 'The Partition is Created sucssefully' ;
         return response()->json($success);
-    }
+    }//End Method
+
     //Function To update a Partition
     public function update(Request $request, $id)
     {
+        $this->authorizCheck('edit-partitions');
+
         // validation
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:100',
@@ -94,11 +101,12 @@ class ApiPartitionController extends Controller
         ]);
         $success= 'The Partition is Updated sucssefully' ;
         return response()->json($success);
-    }
+    }//End Method
 
     //Function To Delete a Partition
     public function delete($id)
     {
+        $this->authorizCheck('delete-partitions');
         $partition = Partition::findOrFail($id);
 
         if ($partition->img !== null) {
@@ -108,5 +116,6 @@ class ApiPartitionController extends Controller
         $partition->delete();
 
         $success= 'The Partition is Deleated sucssefully' ;
-        return response()->json($success);    }
+        return response()->json($success);
+    }//End Method
 }

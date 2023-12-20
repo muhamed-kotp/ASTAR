@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Order;
 
 use App\Models\Item;
 use App\Models\Order;
@@ -9,21 +9,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\AuthorizeCheck;
 
-class ApiOrderController extends Controller
+class OrderController extends Controller
 {
+    use AuthorizeCheck;
+    //Function To Show All Orders
     public function index() {
+        $this->authorizCheck('view-orders');
         $orders = Order::orderBy("id","desc")->get();
         return response()->json($orders);
-    }
+    }//End Method
+
+    //Function To Show The Order Details
     public function show($id) {
-
+        $this->authorizCheck('view-orders');
         $order = Order::with('orderDetails')->findOrFail($id);
-
         return response()->json($order);
-    }
+    }//End Method
 
-    public function  handleCheckOut (Request $request)
+    //Function To Create Order
+    public function  store (Request $request)
     {
         $user_id = Auth::user()-> id ;
         $total = session('total');
@@ -59,6 +65,6 @@ class ApiOrderController extends Controller
         }
         $success= 'Congratulations Your Order is Created sucssefully!' ;
         return response()->json($success);
-    }
+    }//End Method
 
 }

@@ -2,7 +2,7 @@
 <div class="nav-Box fixed-top">
     <nav class=" primary-nav navbar navbar-expand-lg navbar-dark bg-dark  ">
         <div class="container-fluid">
-            <a class="navbar-brand ms-5 nav-title" href="{{ route('welcome') }}">A STAR</a>
+            <a class="navbar-brand nav-title" href="{{ route('welcome') }}">A STAR</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -18,23 +18,25 @@
                             <a class="nav-link active me-5 home-nav color-light" aria-current="page"
                                 href="{{ route('auth.logout') }}">Logout </a>
                         </li>
-                        @if (Auth::user()->Is_admin == 1)
+                        @can('create-categories')
                             <div class="dropdown me-3">
-                                <a class=" nav-link active dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class=" nav-link active dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     Add New
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('items.create') }}">Item</a></li>
                                     <li><a class="dropdown-item" href="{{ route('category.create') }}">Category</a>
                                     <li><a class="dropdown-item" href="{{ route('partition.create') }}">Partition</a>
+                                    <li><a class="dropdown-item" href="{{ route('role-permission.create') }}">Role</a>
                                     </li>
                                 </ul>
                             </div>
-
+                        @endcan
+                        @can('edit-categories')
                             <div class="dropdown me-3">
-                                <a class=" nav-link active dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class=" nav-link active dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     Edit Categories
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -45,16 +47,25 @@
                                     @endforeach
                                 </ul>
                             </div>
-
+                        @endcan
+                        @can('view-orders')
                             <li class="nav-item">
                                 <a class="nav-link active me-5 home-nav color-light" aria-current="page"
                                     href="{{ route('order.index') }}">Orders </a>
                             </li>
+                        @endcan
+                        @can('view-settings')
+                            <li class="nav-item">
+                                <a class="nav-link active me-5 home-nav color-light" aria-current="page"
+                                    href="{{ route('role-permission.index') }}">Roles </a>
+                            </li>
+                        @endcan
+                        @can('view-users')
                             <li class="nav-item">
                                 <a class="nav-link active me-5 home-nav color-light" aria-current="page"
                                     href="{{ route('users.index') }}">Users </a>
                             </li>
-                        @endif
+                        @endcan
                     @endauth
 
                     @guest

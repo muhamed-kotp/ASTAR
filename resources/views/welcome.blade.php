@@ -31,15 +31,12 @@
                             <h5 class="partition-title fw-normal text-center">{{ $partition->title }}</h5>
                             <a class="btn default-btn" href="{{ route('partition.show', $partition->id) }}">View
                                 Products</a>
-                            @auth
-                                @if (Auth::user()->Is_admin == 1)
-                                    <div class="btns-box">
-                                        <a class="btn back_btn" href="{{ route('partition.edit', $partition->id) }}">edit</a>
-                                        <a class="btn back_btn"
-                                            href="{{ route('partition.delete', $partition->id) }}">Delete</a>
-                                    </div>
-                                @endif
-                            @endauth
+                            @can('edit-partitions')
+                                <div class="btns-box">
+                                    <a class="btn back_btn" href="{{ route('partition.edit', $partition->id) }}">edit</a>
+                                    <a class="btn back_btn" href="{{ route('partition.delete', $partition->id) }}">Delete</a>
+                                </div>
+                            @endcan
                         </div>
 
                     </div>

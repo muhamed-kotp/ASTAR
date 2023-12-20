@@ -5,6 +5,7 @@
     letter-spacing: 6px !important;
     font-weight: 800;
     font-size: 25px;
+    margin-left: 50px;
 }
 
 .world-wide{
@@ -40,7 +41,6 @@
     position: relative;
     padding-bottom: 0 !important;
     font-size: 20px !important;
-
   }
   .collapse .nav-link::before {
     content: "";
@@ -154,10 +154,20 @@
     flex-direction: row ;
     justify-content: space-between ;
 }
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1230px) {
     .prod-col-cont{
       width: 45%;
     }
+    .collapse .nav-link {
+        font-family: "Great Vibes", cursive;
+        font-family: "Oswald", sans-serif;
+        font-family: "Playfair Display", serif;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 0 !important;
+        font-size: 17px !important;
+        margin-left: -20px;
+      }
   }
   @media screen and (max-width: 575px) {
     .world-wide{
